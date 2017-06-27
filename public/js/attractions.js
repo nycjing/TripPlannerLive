@@ -1,6 +1,11 @@
 let $hotelChoices = $('#hotel-choices');
 let $restaurantChoices = $('#restaurant-choices');
 let $activityChoices = $('#activity-choices');
+let allMarkers = {
+  hotel: [],
+  restaurant: [],
+  activity: []
+}
 
   var fullstackAcademy = new google.maps.LatLng(40.705086, -74.009151);
 
@@ -59,6 +64,17 @@ let $activityChoices = $('#activity-choices');
   }
 
 
+hotels.forEach(function(hotel) {
+  let coords = hotel.place.location;
+  var latLng = new google.maps.LatLng(coords[0], coords[1]);
+  var marker = new google.maps.Marker({
+    icon: iconURLs['hotel'],
+    position: latLng
+  });
+  allMarkers.hotel.push(marker);
+})
+
+
 function setMarker(selectChoice) {
     let type = selectChoice.data('type');
     let id = parseInt(selectChoice.val()) - 1;
@@ -86,9 +102,18 @@ $('#options-panel').on('click', '.pull-right', function() {
     setMarker($selectChoice);
     let $selectItem = $selectChoice.find(':selected').text();
     let newChoice = $('<span class=title></span>').text($selectItem);
-    let newDelete = $('<button class="btn btn-xs btn-danger remove btn-circle"></button>').text('x');
+    let newDelete = $('<button class="btn btn-xs btn-danger remove dayAttractions btn-circle"></button>').text('x');
     $(choiceType).append(newChoice).append(newDelete);
+    console.log(allMarkers.hotel);
 })
+
+$('#itinerary').on('click', '.dayAttractions', function() {
+  console.log($(this).prev());
+  $(this).prev().remove();
+  $(this).remove();
+
+});
+
 
 
 
