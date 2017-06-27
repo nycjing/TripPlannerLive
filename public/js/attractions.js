@@ -18,5 +18,12 @@ restaurants.forEach(options, $restaurantChoices);
 activities.forEach(options, $activityChoices);
 
 $('#options-panel').on('click', '.pull-right', function() {
-  console.log($(this).siblings('select'));
+  let $selectChoice = $(this).siblings('select');
+  console.log($selectChoice);
+  let $selectItem = $selectChoice.find(':selected').text();
 })
+
+//function span(name){
+//      let $span=
+// }
+
